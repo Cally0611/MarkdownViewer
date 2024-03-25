@@ -1,0 +1,53 @@
+﻿@using MarkdownViewer.Models
+
+@model List<FileModel>
+@{
+    ViewData["Title"] = "Home Page";
+ 
+}
+
+
+
+<div class="text-center">
+   
+    <p>Powered by ASP.NET Core and JavaScript</p>
+<div>
+        <table>
+            <tr>
+                <th>File Name</th>
+                <th></th>
+            </tr>
+            @foreach (FileModel file in Model)
+            {
+                <tr>
+                    <td>@file.FileName</td>
+                    <td>@Html.ActionLink("Download", "DownloadFile", new { fileName = file.FileName })</td>
+                    <td>
+                        @using (Html.BeginForm("ReadFile", "Home", new { fileName = file.FileName }, FormMethod.Post))
+                    {
+                        <input type="submit" id="btnReadtPanel" value="Read" />
+                    }
+                    </td>
+                </tr>
+            }
+            <tr>
+               
+            </tr>
+        </table>
+        <div>     <button id="ConvertMD">Convert</button></div>
+        <div id="editor">
+            <div>
+                <textarea id="markdown-content">@TempData["Message"]</textarea>
+              
+            </div>
+            
+
+            
+            <div id="html-preview"></div>
+            <button id="editor-mode">Change Mode</button>
+           
+        </div>
+       
+   
+</div>
+</div>
